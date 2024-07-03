@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"log"
 
 	"github.com/gin-gonic/gin"
@@ -16,9 +17,9 @@ func main() {
 
 	if err != nil {
 		log.Fatal("Error loading .env file")
-	}	
+	}
 
-	mongodb.InitConn()
+	mongodb.NewMongoDBConn(context.Background())
 
 	userService := service.NewUserDomainService()
 	userController := controller.NewUserControllerInterface(userService)
