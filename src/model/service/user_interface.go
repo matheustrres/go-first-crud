@@ -3,9 +3,10 @@ package service
 import (
 	"github.com/matheustrres/go-first-crud/src/config/rest_errors"
 	"github.com/matheustrres/go-first-crud/src/model"
+	"github.com/matheustrres/go-first-crud/src/model/repository"
 )
 
-func NewUserDomainService() UserDomainService {
+func NewUserDomainService(repository repository.UserRepositoryInterface) UserDomainService {
 	return &userDomainService{}
 }
 
