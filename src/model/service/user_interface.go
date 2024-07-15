@@ -13,7 +13,7 @@ func NewUserDomainService(repository repository.UserRepositoryInterface) UserDom
 type userDomainService struct{}
 
 type UserDomainService interface {
-	CreateUser(model.UserDomainInterface) *rest_errors.RestError
+	CreateUser(model.UserDomainInterface) (model.UserDomainInterface, *rest_errors.RestError)
 	UpdateUser(string, model.UserDomainInterface) *rest_errors.RestError
 	FindUser(string) (*model.UserDomainInterface, *rest_errors.RestError)
 	DeleteUser(string) *rest_errors.RestError

@@ -9,10 +9,15 @@ import (
 
 func (u *userDomainService) CreateUser(
 	userDomain model.UserDomainInterface,
-) *rest_errors.RestError {
+) (model.UserDomainInterface, *rest_errors.RestError) {
 	logger.Info("Init createUser model", zap.String("journey", "createUser"))
 
 	userDomain.EncryptPassword()
 
-	return nil
+	userDomainRepository, err := u.CreateUser(userDomain)
+	if err != nil {
+		logger.Info("Init createUser model", zap.String("journey", "createUser"))
+	}
+
+	return userDomainRepository, nil
 }
