@@ -7,10 +7,14 @@ import (
 )
 
 func NewUserDomainService(repository repository.UserRepositoryInterface) UserDomainService {
-	return &userDomainService{}
+	return &userDomainService{
+		userRepository: repository,
+	}
 }
 
-type userDomainService struct{}
+type userDomainService struct {
+	userRepository repository.UserRepositoryInterface
+}
 
 type UserDomainService interface {
 	CreateUser(model.UserDomainInterface) (model.UserDomainInterface, *rest_errors.RestError)

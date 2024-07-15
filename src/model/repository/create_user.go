@@ -7,6 +7,8 @@ import (
 	"github.com/matheustrres/go-first-crud/src/config/logger"
 	"github.com/matheustrres/go-first-crud/src/config/rest_errors"
 	"github.com/matheustrres/go-first-crud/src/model"
+	"github.com/matheustrres/go-first-crud/src/model/repository/entity/converter"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 const (
@@ -22,17 +24,14 @@ func (ur *userRepositoryInterface) CreateUser(
 
 	usersCollec := ur.database.Collection(collec_name)
 
-	value, err := userDomain.GetJSONValue()
-	if err != nil {
-		return nil, rest_errors.NewInternalServerError(err.Error())
-	}
+	value := converter.ConvertDomainToEntity(userDomain)
 
 	result, err := usersCollec.InsertOne(context.Background(), value)
 	if err != nil {
 		return nil, rest_errors.NewInternalServerError(err.Error())
 	}
 
-	userDomain.SetID(result.InsertedID.(string))
+	value.ID = result.InsertedID.(primitive.ObjectID)
 
-	return userDomain, nil
+	return converter.ConvertEntityToDomain(*value), nil
 }

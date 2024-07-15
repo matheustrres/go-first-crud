@@ -14,9 +14,14 @@ func (u *userDomainService) CreateUser(
 
 	userDomain.EncryptPassword()
 
-	userDomainRepository, err := u.CreateUser(userDomain)
+	userDomainRepository, err := u.userRepository.CreateUser(userDomain)
 	if err != nil {
-		logger.Info("Init createUser model", zap.String("journey", "createUser"))
+		logger.Error(
+			"Error trying to call repository",
+			err,
+			zap.String("journey", "createUser"),
+		)
+		return nil, err
 	}
 
 	return userDomainRepository, nil
