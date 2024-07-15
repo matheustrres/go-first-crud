@@ -23,8 +23,8 @@ func main() {
 			"Error trying to connect to MongoDB, error=%s \n",
 			err.Error(),
 		)
-
 	}
+
 	userController := initDependencies(db)
 
 	/**

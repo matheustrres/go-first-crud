@@ -1,4 +1,5 @@
 package model
+
 type UserDomainInterface interface {
 	GetName() string
 	GetEmail() string
